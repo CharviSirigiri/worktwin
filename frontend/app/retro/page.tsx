@@ -79,7 +79,7 @@ function RetroPage() {
 
         {retro && (
           <>
-            <section className="sheet" style={{ background: "var(--ink)", color: "#fff" }}>
+            <section className="sheet plum">
               <p style={{ opacity: 0.7, marginBottom: 6 }}>For the whole team</p>
               <p style={{ fontFamily: "var(--display)", fontSize: "1.45rem", fontWeight: 600, lineHeight: 1.3 }}>{retro.teamSuggestion}</p>
             </section>

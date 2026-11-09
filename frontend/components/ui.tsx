@@ -7,8 +7,8 @@ import { colorFor, initials } from "@/lib/people";
 export function Logo({ size = 26 }: { size?: number }) {
   return (
     <svg width={size * 1.4} height={size} viewBox="0 0 42 30" aria-hidden="true">
-      <circle cx="15" cy="15" r="13" fill="#2E46F0" />
-      <circle cx="27" cy="15" r="13" fill="none" stroke="#2E46F0" strokeWidth="3" strokeDasharray="4 3" />
+      <circle cx="15" cy="15" r="13" fill="#7B5CFF" />
+      <circle cx="27" cy="15" r="13" fill="none" stroke="#7B5CFF" strokeWidth="3" strokeDasharray="4 3" />
     </svg>
   );
 }
@@ -31,7 +31,7 @@ export function TwinMark({ members, uid, twinOnly = false }: { members: Member[]
   if (!m) return null;
   return (
     <span className="twin-mark" aria-hidden="true">
-      <span style={{ background: twinOnly ? c.soft : c.solid, color: twinOnly ? c.ink : "#fff" }}>{initials(m)}</span>
+      <span style={{ background: twinOnly ? c.soft : c.solid, color: c.ink }}>{initials(m)}</span>
       <span style={{ background: c.soft, border: `2px dashed ${c.solid}` }} />
     </span>
   );

@@ -6,9 +6,9 @@ import { ErrorBox, TopBar } from "@/components/ui";
 import { api, type Team } from "@/lib/api";
 
 const PREVIEW = [
-  { who: "Aisha's twin", color: "#FF7A3D", soft: "#FFE3D4", text: "I'm at my best after 10 PM, so please don't book me for 9 AM calls." },
-  { who: "Wei Jie's twin", color: "#14A39A", soft: "#CDEFEC", text: "Fine by me. I'll review her PRs the next afternoon." },
-  { who: "Coordinator", color: "#1A2340", soft: "#1A2340", text: "Agreed: Wednesday evening check-in, and Aisha's internal deadline moves to Sat 7 Nov." },
+  { who: "Aisha's twin", color: "#2E2170", soft: "#EFEBFF", text: "I'm at my best after 10 PM, so please don't book me for 9 AM calls." },
+  { who: "Wei Jie's twin", color: "#5A1E33", soft: "#FCEAF0", text: "Fine by me. I'll review her PRs the next afternoon." },
+  { who: "Coordinator", color: "#fff", soft: "#3B1640", text: "Agreed: Wednesday evening check-in, and Aisha's internal deadline moves to Sat 7 Nov." },
 ];
 
 export default function Home() {

@@ -191,10 +191,11 @@ function TeamPage() {
               const role = charter?.roles.filter((r) => r.uid === m.uid).map((r) => r.role).join(", ");
               return (
                 <article key={m.uid} className="pair">
-                  <div className="pair-person" style={{ background: c.solid }}>
+                  <div className="pair-person">
+                    <span className="avatar" style={{ background: c.solid, color: c.ink }}>{m.shortName.slice(0, 1)}</span>
                     <h3>{m.shortName}</h3>
-                    <p style={{ opacity: 0.9, fontSize: "0.92rem" }}>{m.name}</p>
-                    {role && <p style={{ marginTop: 10, fontWeight: 700 }}>{role}</p>}
+                    <p style={{ opacity: 0.75, fontSize: "0.92rem" }}>{m.name}</p>
+                    {role && <p style={{ marginTop: 10, fontWeight: 700, color: c.solid }}>{role}</p>}
                     {mine === m.uid && <p style={{ marginTop: 8, fontSize: "0.85rem" }}>This is you</p>}
                   </div>
                   <div className="pair-twin" style={{ background: c.soft, color: c.ink }}>

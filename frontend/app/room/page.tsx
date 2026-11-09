@@ -193,7 +193,7 @@ function Room() {
                   const canClick = view.team.demo || !mine || mine === m.uid;
                   return (
                     <button key={m.uid} className={`btn small${done ? " done" : " ghost"}`} disabled={done || !canClick || live}
-                      onClick={() => accept(m.uid)} style={done ? { background: colorFor(members, m.uid).solid } : undefined}>
+                      onClick={() => accept(m.uid)} style={done ? { background: colorFor(members, m.uid).solid, color: colorFor(members, m.uid).ink } : undefined}>
                       {done ? `${m.shortName} accepted` : `Accept as ${m.shortName}`}
                     </button>
                   );

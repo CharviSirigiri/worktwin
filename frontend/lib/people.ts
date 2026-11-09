@@ -1,14 +1,16 @@
 import type { Member } from "./api";
 
-/** Each member owns a colour; their twin wears the soft echo of it. */
-// `on` is the readable text colour on top of `solid`.
+/**
+ * Each member owns a soft pastel; their twin wears the paler echo of it.
+ * solid: avatar / accent, soft: twin background, ink: readable text on either.
+ */
 export const PALETTE = [
-  { solid: "#FF7A3D", soft: "#FFE3D4", ink: "#3A1600", on: "#2B1000" },
-  { solid: "#14A39A", soft: "#CDEFEC", ink: "#00302C", on: "#00211E" },
-  { solid: "#7B5CFF", soft: "#E3DCFF", ink: "#1C0F5C", on: "#FFFFFF" },
-  { solid: "#E5487A", soft: "#FADAE4", ink: "#4A0019", on: "#FFFFFF" },
-  { solid: "#2E9BE6", soft: "#D3EAFA", ink: "#002E4D", on: "#001F33" },
-  { solid: "#C9A400", soft: "#F5ECC2", ink: "#3A2F00", on: "#2B2300" },
+  { solid: "#A895F7", soft: "#EFEBFF", ink: "#2E2170" }, // lavender
+  { solid: "#EFA7BC", soft: "#FCEAF0", ink: "#5A1E33" }, // rose
+  { solid: "#95B9E8", soft: "#E8F0FA", ink: "#1E3557" }, // sky
+  { solid: "#93CDBA", soft: "#E5F5F0", ink: "#173F35" }, // sage
+  { solid: "#EDCB80", soft: "#FDF4E0", ink: "#4A3510" }, // butter
+  { solid: "#BCB0D3", soft: "#F1EEF7", ink: "#352B4A" }, // lilac grey
 ];
 
 export function colorFor(members: Member[], uid: string) {

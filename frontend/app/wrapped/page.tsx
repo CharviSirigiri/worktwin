@@ -8,16 +8,12 @@ import { api, type Member, type Slide, type TeamView, type Wrapped } from "@/lib
 import { colorFor } from "@/lib/people";
 
 const SLIDE_MS = 7000;
-const NAVY = "#1A2340";
-const COBALT = "#2E46F0";
+const VIOLET_LIGHT = "#C9BBFF";
 
-function colorsFor(slide: Slide, members: Member[]) {
-  if (slide.kind === "member" && slide.uid) {
-    const c = colorFor(members, slide.uid);
-    return { bg: c.solid, fg: c.on };
-  }
-  if (slide.kind === "intro" || slide.kind === "outro") return { bg: COBALT, fg: "#fff" };
-  return { bg: NAVY, fg: "#fff" };
+/** Every slide sits on the same plum; only the accent changes, so the story feels calm, not flashy. */
+function accentFor(slide: Slide, members: Member[]) {
+  if (slide.kind === "member" && slide.uid) return colorFor(members, slide.uid).solid;
+  return VIOLET_LIGHT;
 }
 
 function useReducedMotion() {
@@ -29,7 +25,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-function SlideBody({ slide, members, reflections }: { slide: Slide; members: Member[]; reflections: Record<string, string> }) {
+function SlideBody({ slide, members, reflections, accent }: { slide: Slide; members: Member[]; reflections: Record<string, string>; accent: string }) {
   const [open, setOpen] = useState<string | null>(null);
   if (slide.kind === "mix" && slide.bars) {
     const max = Math.max(...slide.bars.map((b) => b.share), 0.01);
@@ -65,9 +61,9 @@ function SlideBody({ slide, members, reflections }: { slide: Slide; members: Mem
   }
   return (
     <>
-      {slide.kind === "member" && <p className="unit" style={{ fontWeight: 700 }}>{slide.name}</p>}
+      {slide.kind === "member" && <p className="unit" style={{ fontWeight: 700, color: accent }}>{slide.name}</p>}
       <p className="title">{slide.title}</p>
-      {slide.big && <p className="big">{slide.big}</p>}
+      {slide.big && <p className="big" style={{ color: accent }}>{slide.big}</p>}
       {slide.unit && <p className="unit">{slide.unit}</p>}
       {slide.chips && (
         <div className="chips">
@@ -142,18 +138,18 @@ function WrappedPage() {
   if (error) return <main className="wrap page"><ErrorBox error={error} /></main>;
   if (!data || !view) {
     return (
-      <div className="wrapped" style={{ background: COBALT, color: "#fff", alignItems: "center", justifyContent: "center" }}>
+      <div className="wrapped" style={{ alignItems: "center", justifyContent: "center" }}>
         <p className="title" style={{ fontFamily: "var(--display)", fontSize: "1.6rem" }}>Counting every commit...</p>
       </div>
     );
   }
 
   const slide = data.slides[i];
-  const { bg, fg } = colorsFor(slide, view.members);
+  const accent = accentFor(slide, view.members);
   const autoplay = playing && !reduced;
 
   return (
-    <div className="wrapped" style={{ background: bg, color: fg }}>
+    <div className="wrapped">
       <div className="bars" aria-hidden="true">
         {data.slides.map((s, k) => (
           <span key={s.id}>
@@ -161,7 +157,7 @@ function WrappedPage() {
               key={`${k}-${i}-${autoplay}`}
               style={{
                 width: k < i ? "100%" : k === i && !autoplay ? "100%" : "0%",
-                background: fg,
+                background: "#fff",
                 animation: k === i && autoplay && i < n - 1 ? `fill ${SLIDE_MS}ms linear forwards` : undefined,
               }}
             />
@@ -175,20 +171,20 @@ function WrappedPage() {
 
       <section key={slide.id} className="stage slide-in" aria-live="polite" style={{ position: "relative", zIndex: 1, pointerEvents: "none" }}>
         <div style={{ pointerEvents: "auto", maxWidth: "100%" }}>
-          <SlideBody slide={slide} members={view.members} reflections={data.reflections} />
+          <SlideBody slide={slide} members={view.members} reflections={data.reflections} accent={accent} />
         </div>
       </section>
 
       <nav className="nav" style={{ position: "relative", zIndex: 2 }}>
-        <Link className="btn small" href={`/team/?id=${id}`} style={{ color: fg }}>Close</Link>
+        <Link className="btn small" href={`/team/?id=${id}`}>Close</Link>
         <div className="row">
           {!reduced && (
-            <button className="btn small" onClick={() => setPlaying((p) => !p)} style={{ color: fg }}>
+            <button className="btn small" onClick={() => setPlaying((p) => !p)}>
               {playing ? "Pause" : "Play"}
             </button>
           )}
-          <button className="btn small" onClick={prev} disabled={i === 0} style={{ color: fg }}>Back</button>
-          <button className="btn small" onClick={next} disabled={i === n - 1} style={{ color: fg }}>Next</button>
+          <button className="btn small" onClick={prev} disabled={i === 0}>Back</button>
+          <button className="btn small" onClick={next} disabled={i === n - 1}>Next</button>
         </div>
       </nav>
     </div>
