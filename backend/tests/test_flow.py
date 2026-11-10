@@ -137,3 +137,15 @@ def test_consent_off_and_delete_member():
     rows = get_store().list_activity(team_id)
     assert rows and not any(r.get("uid") == "priya" for r in rows)
     assert not any(r.get("uid") == "aisha" and r.get("source") == "github" for r in rows)
+
+
+def test_blank_env_values_fall_back_to_defaults(monkeypatch):
+    """A blank line like `MOCK_LLM=` in .env must not switch mock mode off."""
+    from app import config
+
+    monkeypatch.setenv("MOCK_LLM", "")
+    monkeypatch.setenv("GEMINI_MODEL", "  ")
+    assert config._bool("MOCK_LLM", default=True) is True
+    assert config._str("GEMINI_MODEL", "gemini-2.5-flash") == "gemini-2.5-flash"
+    monkeypatch.setenv("MOCK_LLM", "false")
+    assert config._bool("MOCK_LLM", default=True) is False

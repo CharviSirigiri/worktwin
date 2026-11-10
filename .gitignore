@@ -10,3 +10,5 @@ frontend/out/
 frontend/.env.local
 frontend/next-env.d.ts
 .firebase/
+*.log
+frontend/tsconfig.tsbuildinfo
